@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ResultController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return redirect('/results');
+})->name('');
 
-Route::get('/results', function () {
-    return view('dashboard');
-})
-    ->middleware(['auth'])
-    ->name('dashboard');
+Route::resource('/results', ResultController::class)
+    ->middleware(['auth']);
 
 require __DIR__.'/auth.php';
