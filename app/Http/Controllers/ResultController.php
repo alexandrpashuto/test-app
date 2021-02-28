@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Result;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ResultController extends Controller
 {
@@ -14,7 +15,12 @@ class ResultController extends Controller
      */
     public function index()
     {
-        //
+//        $results = Result::find(1)->users();
+        $results = Result::with('user')
+            ->orderBy('id','DESC')
+            ->paginate(5);
+//        dd($results);
+        return view('request',['results' => $results]);
     }
 
     /**
@@ -24,7 +30,7 @@ class ResultController extends Controller
      */
     public function create()
     {
-        //
+        return view('create');
     }
 
     /**
@@ -35,7 +41,26 @@ class ResultController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $v = $request->validate([
+            'mynumber' => 'required',
+            'myarray' => 'required|regex:/^[\d, ]+$/i',
+        ]);
+        $arr['arr'] = explode(',',$request->myarray);
+        $arr['mynumber'] = $request->mynumber;
+        $res = ArrTest($arr);
+        $result = new Result(
+            [
+                'user_id' => Auth::id(),
+                'request' => json_encode($arr),
+//                'request' => $request->myarray,
+                'result' => $res,
+
+            ]
+        );
+        $result->save();
+        $r['result'] = $res;
+//        dd($r);
+        return $r;
     }
 
     /**
