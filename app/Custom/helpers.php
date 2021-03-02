@@ -12,7 +12,7 @@ function ArrTest($data)
             =  array_filter(array_slice($arr, $i),function ($k) use ($data) {
             return $k != $data['mynumber'];
         });
-        if(count($a1) === count($a2)){
+        if((count($a1) === count($a2)) && count($a2) !== 0){
             return $i;
         }
     }
