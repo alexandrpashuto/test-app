@@ -15,11 +15,9 @@ class ResultController extends Controller
      */
     public function index()
     {
-//        $results = Result::find(1)->users();
         $results = Result::with('user')
             ->orderBy('id','DESC')
-            ->paginate(5);
-//        dd($results);
+            ->paginate(8);
         return view('request',['results' => $results]);
     }
 
@@ -52,14 +50,11 @@ class ResultController extends Controller
             [
                 'user_id' => Auth::id(),
                 'request' => json_encode($arr),
-//                'request' => $request->myarray,
                 'result' => $res,
-
             ]
         );
         $result->save();
         $r['result'] = $res;
-//        dd($r);
         return $r;
     }
 
