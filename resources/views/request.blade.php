@@ -1,15 +1,16 @@
 @extends('layouts.test')
 @section('content')
     <div class="container">
-        <div class="row align-items-center">
+        <h3 class="text-center">История запросов</h3>
+        <div class="row align-items-center" style="margin-top: 10px;">
             @if( !count($results) )
-                <p>Нет выполненных запросов</p>
+                <p class="text-center">Нет выполненных запросов</p>
             @else
                 <table class="table table-bordered border-primary">
                     <thead>
                     <tr>
                         <th>id</th>
-                        <th>user_id</th>
+                        <th>Пользователь</th>
                         <th>Запрос</th>
                         <th>Результат</th>
                         <th>Дата</th>
